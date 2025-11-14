@@ -1,7 +1,7 @@
 'use client';
+import Link from 'next/link';
 
-// Export the interface so it can be used in other components
-export interface Property {
+interface Property {
   id: string;
   title: string;
   description?: string;
@@ -17,24 +17,14 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
-  const {
-    title,
-    description,
-    price,
-    location,
-    image,
-    bedrooms,
-    bathrooms
-  } = property;
-
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       {/* Property Image */}
       <div className="relative h-48 w-full">
-        {image ? (
+        {property.image ? (
           <img 
-            src={image} 
-            alt={title}
+            src={property.image} 
+            alt={property.title}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -47,40 +37,43 @@ export default function PropertyCard({ property }: PropertyCardProps) {
       {/* Property Details */}
       <div className="p-4">
         <h3 className="text-xl font-semibold text-gray-800 mb-2 truncate">
-          {title}
+          {property.title}
         </h3>
         
         <p className="text-gray-600 mb-2 line-clamp-2">
-          {description || 'No description available'}
+          {property.description || 'No description available'}
         </p>
 
         <div className="flex items-center text-gray-600 mb-2">
           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
-          <span className="text-sm">{location}</span>
+          <span className="text-sm">{property.location}</span>
         </div>
 
         {/* Bedrooms and Bathrooms */}
-        {(bedrooms !== undefined || bathrooms !== undefined) && (
+        {(property.bedrooms !== undefined || property.bathrooms !== undefined) && (
           <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-            {bedrooms !== undefined && (
-              <span>{bedrooms} bed{bedrooms !== 1 ? 's' : ''}</span>
+            {property.bedrooms !== undefined && (
+              <span>{property.bedrooms} bed{property.bedrooms !== 1 ? 's' : ''}</span>
             )}
-            {bathrooms !== undefined && (
-              <span>{bathrooms} bath{bathrooms !== 1 ? 's' : ''}</span>
+            {property.bathrooms !== undefined && (
+              <span>{property.bathrooms} bath{property.bathrooms !== 1 ? 's' : ''}</span>
             )}
           </div>
         )}
 
-        {/* Price */}
+        {/* Price and View Details Button */}
         <div className="flex items-center justify-between mt-4">
           <span className="text-2xl font-bold text-blue-600">
-            ${price.toLocaleString()}
+            ${property.price.toLocaleString()}
           </span>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+          <Link 
+            href={`/property/${property.id}`}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+          >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
