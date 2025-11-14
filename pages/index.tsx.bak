@@ -1,0 +1,33 @@
+import React from 'react'
+import { Card } from '../components/common/Card'
+import { Button } from '../components/common/Button'
+
+export default function Home() {
+  return (
+    <main className="p-6">
+      <h1 className="text-2xl font-bold mb-4">ALX Listing App — Demo</h1>
+
+      <section className="mb-6">
+        <Button
+          label="Top level button"
+          onClick={() => alert('Top-level button clicked')}
+          className="mr-2"
+        />
+      </section>
+
+      <section className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Card
+          id={1}
+          title="Cozy studio near downtown"
+          description="1 bed • 1 bath • fast wifi"
+          imageUrl="/assets/images/placeholder-property.svg"
+        />
+        <Card
+          id={2}
+          title="Bright apartment with balcony"
+          description="2 beds • great light"
+        />
+      </section>
+    </main>
+  )
+}
